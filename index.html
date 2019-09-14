@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+        <html lang="en">
+          <head>
+          <meta charset="utf-8">
+          <meta content="IE=edge" http-equiv="X-UA-Compatible">
+          <meta name="viewport" content="width=device-width, height=device-height, maximum-scale = 1.0, minimum-scale=1.0,initial-scale=1.0">
+          <title>CopsEye</title>
+        <head>
+        </head>
+        <body>
+            <div id="cmsv6flash" style="height:100vh;width:100vw;"></div>
+            <script src="//code.jquery.com/jquery.min.js"></script>
+            <script src="http://live.copseye.com/808gps/open/player/swfobject.js"></script>
+            <script>
+                var isInitFinished = false;//Are video plug loading complete
+                //Init Video Plug
+                function initPlayerExample() {
+                    //Video plug-in init param
+                    var params = {
+                        allowFullscreen: "true",
+                        allowScriptAccess: "always",
+                        bgcolor: "#FFFFFF",
+                        wmode: "transparent"
+                        };
+                    //Init flash
+                    swfobject.embedSWF("player.swf", "cmsv6flash", 600, 800, "11.0.0", null, null, params, null);
+                    initFlash();
+                }
+                //Are video plug loading complete
+                function initFlash() {
+                    if (swfobject.getObjectById("cmsv6flash") == null ||
+                            typeof swfobject.getObjectById("cmsv6flash").setWindowNum == "undefined" ) {
+                            setTimeout(initFlash, 50);
+                    } else {
+                            //Stop Video
+                            swfobject.getObjectById("cmsv6flash").stopVideo(0);
+
+                            // //Setting the language video widget
+                             swfobject.getObjectById("cmsv6flash").setLanguage("en.xml");
+                            // //First of all windows created
+                            // swfobject.getObjectById("cmsv6flash").setWindowNum(36);
+                            // //Re-configure the current number of windows
+                            swfobject.getObjectById("cmsv6flash").setWindowNum(1);
+                            // //Set the video plug-in server
+                            //swfobject.getObjectById("cmsv6flash").setServerInfo("live.copseye.com", "6605");
+
+                           
+                            //Set the video window title
+                            swfobject.getObjectById("cmsv6flash").setVideoInfo(0, "vehicle1-CH1");
+                            //Play Video
+                            swfobject.getObjectById("cmsv6flash").startVod(0, "http://13.126.69.77:6604/3/5?DownType=3&jsession=&DevIDNO=00420&FLENGTH=816445956&FOFFSET=0&MTYPE=1&FPATH=/sd/2019-09-14/H20190914-050000P4N1F0.264&SAVENAME=");
+
+                            isInitFinished = true;
+                    }
+                }
+
+                initPlayerExample();
+            </script>
+        </body>
+</html>
